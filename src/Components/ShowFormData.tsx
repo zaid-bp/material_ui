@@ -35,10 +35,10 @@ export default function DataTable() {
           <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }} >
               <TableCell component="th" scope="row">{firstName}</TableCell>
               <TableCell align="right">{lastName}</TableCell>
-              <TableCell align="right">{city}</TableCell>
-              <TableCell align="right">{selectedProvince}</TableCell>
               <TableCell align="right">{addLine1}</TableCell>
               <TableCell align="right">{addLine2}</TableCell>
+              <TableCell align="right">{city}</TableCell>
+              <TableCell align="right">{selectedProvince}</TableCell>
             </TableRow>
             )
 })}
