@@ -1,8 +1,8 @@
-import { TextField, Typography, Stack, Button, FilledTextFieldProps, OutlinedTextFieldProps, StandardTextFieldProps, TextFieldVariants } from '@mui/material';
+import { TextField, Typography, Stack, Button } from '@mui/material';
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete';
-import { JSX } from 'react/jsx-runtime';
+
 
 
 const cities = [
@@ -60,13 +60,13 @@ function Myform() {
 
 
   return (
-    <>
+
 <Formik
         initialValues={{
           firstName: '',
           lastName: '',
-          city: '',
-          selectedProvince:'',
+          city: 'Karachi',
+          selectedProvince:'Sindh',
           addLine1:'',
           addLine2:'',
         }}
@@ -87,7 +87,7 @@ function Myform() {
         
       >
 
-{({ errors, values, handleChange, handleBlur }) => (
+{({ errors, values, handleChange, handleBlur, touched }) => (
   <Form style={formStyle}>
   <Stack>
   <Typography variant='h4' fontWeight={'bold'}>SignUp</Typography>
@@ -101,7 +101,7 @@ function Myform() {
         label="First Name" 
         variant="outlined" 
         helperText={<ErrorMessage name="firstName" />}
-        error={Boolean(errors.firstName)?true:false}
+        error={Boolean(errors.firstName) && (touched.firstName && errors.firstName)}
         
         />
         
@@ -112,7 +112,7 @@ function Myform() {
         label="Last Name" 
         variant="outlined" 
         helperText={<ErrorMessage name="lastName" />}
-        error={Boolean(errors.lastName)?true:false}
+        error={Boolean(errors.lastName) && (touched.lastName && errors.lastName)}
 
         
         />
@@ -129,7 +129,7 @@ function Myform() {
        style={inputStyle} 
        variant="outlined"
       helperText={<ErrorMessage name="addLine1" />}
-      error={Boolean(errors.addLine1)?true:false}
+      error={Boolean(errors.addLine1) && (touched.addLine1 && errors.addLine1)}
 
         />
       <Field 
@@ -140,65 +140,50 @@ function Myform() {
       style={inputStyle} 
       variant="outlined"
       helperText={<ErrorMessage name="addLine2" />}
-      error={Boolean(errors.addLine2)?true:false}
+      error={Boolean(errors.addLine2) && (touched.addLine2 && errors.addLine2)}
 
       
       />
       
       <Stack direction={'row'} spacing={2}>
-        {/* <Field 
-          id="standard-basic" 
-          as={TextField} 
-          name='city' 
-          label="City"
-          variant="outlined"
-          helperText={<ErrorMessage name="city" />}
-          error={Boolean(errors.city)?true:false}
-        /> */}
-          {/* <Field 
-          id="standard-basic" 
-          as={TextField} 
-          name='state' 
-          label="State/Province"  
-          variant="outlined"
-          helperText={<ErrorMessage name="state" />}
-          error={Boolean(errors.state)?true:false}
-        /> */}
+     
           <Autocomplete
-            name="selectedProvince"
+            
             value={values.selectedProvince}
-            onChange={(_event, stateVal) => handleChange('selectedProvince')(stateVal)}
+            onChange={(_event, stateVal:(string | any)) => handleChange('selectedProvince')(stateVal)}
             fullWidth
-            // onBlur={handleBlur('city')}
+            onBlur={handleBlur('selectedProvince')}
             options={provinces}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Select a State"
                 variant="outlined"
-                error={Boolean(errors.selectedProvince)}
+                error={(touched.selectedProvince && Boolean(errors.selectedProvince))}
                 helperText={<ErrorMessage name="selectedProvince" />}
               />
             )}
           />
 
           <Autocomplete
-            name="city"
+
             value={values.city}
-            onChange={(_event, cityVal) => handleChange('city')(cityVal)}
+            onChange={(_event, cityVal:(string | any)) => handleChange('city')(cityVal)}
             fullWidth
-            // onBlur={handleBlur('city')}
+            onBlur={handleBlur('city')}
             options={cities}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Select a City"
                 variant="outlined"
-                error={Boolean(errors.city)}
+                error={(touched.city && Boolean(errors.city))}
                 helperText={<ErrorMessage name="city" />}
               />
             )}
           />
+
+
 
 
 
@@ -219,8 +204,7 @@ function Myform() {
 )}
 
 </Formik>
-{/* </form> */}
-</>
+
   )
 }
 
