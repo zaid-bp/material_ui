@@ -2,7 +2,9 @@ import { TextField, Typography, Stack, Button } from '@mui/material';
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete';
-import { useState } from 'react';
+import { getFormData } from '../features/formSlice';
+import { useDispatch } from 'react-redux';
+
 
 const citiesByProvince: Record<string, string[]> = {
   'Punjab': ['Lahore', 'Faisalabad', 'Rawalpindi'],
@@ -46,9 +48,8 @@ interface Values {
   addLine1: string;
   addLine2: string;
 }
-
 function Myform() {
-  const [city, setCity]=useState('');
+  const dispatch = useDispatch();
   
   
   return (
@@ -65,23 +66,13 @@ function Myform() {
 
       validationSchema={validationSchema}
 
-      onSubmit={(
-        values: Values,
-        { setSubmitting }: FormikHelpers<Values>,
-        
-        
-
-      ) => {
-
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 500);
+      onSubmit={(values: Values) => {
+          dispatch(getFormData(values))
       }}
 
     >
 
-      {({ errors, values, handleChange, handleBlur, touched }) => (
+      {({ errors, values, handleChange, handleBlur, touched, setFieldValue }) => (
         <Form style={formStyle}>
 
           <Stack>
@@ -144,8 +135,7 @@ function Myform() {
                   value={values.selectedProvince}
                   onChange={(_event, stateVal: (string | any)) => {
                     handleChange('selectedProvince')(stateVal)
-                    setCity(citiesByProvince[stateVal][0])
-                  
+                    setFieldValue("city", citiesByProvince[stateVal][0])
                   }}
                   fullWidth
                   onBlur={handleBlur('selectedProvince')}
@@ -162,9 +152,8 @@ function Myform() {
                 />
 
                 <Autocomplete
-                  value={city? city:values.city}
+                  value={values.city}
                   onChange={(_event, cityVal: (string | any)) => {
-                    setCity(cityVal);
                     handleChange('city')(cityVal)
                   }
                 }
@@ -172,7 +161,6 @@ function Myform() {
                   onBlur={handleBlur('city')}
                   options={citiesByProvince[values.selectedProvince]}
                   renderInput={(params) => (
-
                     <TextField
                       {...params}
                       label="Select a City"
