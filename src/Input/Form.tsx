@@ -2,6 +2,7 @@ import { TextField, Typography, Stack, Button } from '@mui/material';
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete';
+import { useState } from 'react';
 
 const citiesByProvince: Record<string, string[]> = {
   'Punjab': ['Lahore', 'Faisalabad', 'Rawalpindi'],
@@ -12,7 +13,6 @@ const citiesByProvince: Record<string, string[]> = {
   'Jammu & Kashmir': ['Muzaffarabad', 'Mirpur', 'Rawalakot']
 }
 const states: string[] = Object.keys(citiesByProvince);
-
 
 
 
@@ -48,10 +48,11 @@ interface Values {
 }
 
 function Myform() {
-
-
+  const [city, setCity]=useState('');
+  
+  
   return (
-
+    
     <Formik
       initialValues={{
         firstName: '',
@@ -66,10 +67,12 @@ function Myform() {
 
       onSubmit={(
         values: Values,
-        { setSubmitting }: FormikHelpers<Values>
+        { setSubmitting }: FormikHelpers<Values>,
+        
+        
 
       ) => {
-
+        // console.log(values.city);
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
@@ -139,7 +142,12 @@ function Myform() {
 
                 <Autocomplete
                   value={values.selectedProvince}
-                  onChange={(_event, stateVal: (string | any)) => handleChange('selectedProvince')(stateVal)}
+                  onChange={(_event, stateVal: (string | any)) => {
+                    handleChange('selectedProvince')(stateVal)
+                    setCity(citiesByProvince[stateVal][0])
+                    // console.log(values.selectedProvince);
+                  
+                  }}
                   fullWidth
                   onBlur={handleBlur('selectedProvince')}
                   options={states}
@@ -155,8 +163,12 @@ function Myform() {
                 />
 
                 <Autocomplete
-                  value={citiesByProvince[values.selectedProvince][0]}
-                  onChange={(_event, cityVal: (string | any)) => handleChange('city')(cityVal)}
+                  value={city}
+                  onChange={(_event, cityVal: (string | any)) => {
+                    setCity(cityVal);
+                    handleChange('city')(cityVal)
+                  }
+                }
                   fullWidth
                   onBlur={handleBlur('city')}
                   options={citiesByProvince[values.selectedProvince]}
