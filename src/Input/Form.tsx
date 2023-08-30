@@ -72,7 +72,7 @@ function Myform() {
         
 
       ) => {
-        // console.log(values.city);
+
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
@@ -145,7 +145,6 @@ function Myform() {
                   onChange={(_event, stateVal: (string | any)) => {
                     handleChange('selectedProvince')(stateVal)
                     setCity(citiesByProvince[stateVal][0])
-                    // console.log(values.selectedProvince);
                   
                   }}
                   fullWidth
@@ -163,7 +162,7 @@ function Myform() {
                 />
 
                 <Autocomplete
-                  value={city}
+                  value={city? city:values.city}
                   onChange={(_event, cityVal: (string | any)) => {
                     setCity(cityVal);
                     handleChange('city')(cityVal)
