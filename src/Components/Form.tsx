@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getFormData } from '../features/formSlice';
 import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from "react-router-dom";
 
 
 const citiesByProvince: Record<string, string[]> = {
@@ -23,8 +24,8 @@ const validationSchema = yup.object().shape({
   lastName: yup.string().required('Last Name is required'),
   city: yup.string().required('City is required'),
   selectedProvince: yup.string().required('State is required'),
-  addLine2: yup.string().required('addredd is required'),
-  addLine1: yup.string().required('addredd is required'),
+  email: yup.string().required('email is required'),
+  password: yup.string().required('password is required'),
 });
 
 const inputStyle = {
@@ -32,10 +33,9 @@ const inputStyle = {
 }
 
 const formStyle = {
-  justifyContent: 'center',
-  alignItems: 'center',
   padding: '2rem',
   background: '#ffff',
+  margin:'auto',
   width: 'fit-content',
   borderRadius: '1rem',
 }
@@ -45,12 +45,12 @@ interface Values {
   lastName: string;
   city: string;
   selectedProvince: string;
-  addLine1: string;
-  addLine2: string;
+  email: string;
+  password: string;
 }
 function Myform() {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
   
   return (
     
@@ -60,14 +60,15 @@ function Myform() {
         lastName: '',
         city: 'Hyderabad',
         selectedProvince: 'Sindh',
-        addLine1: '',
-        addLine2: '',
+        email: '',
+        password: '',
       }}
 
       validationSchema={validationSchema}
 
       onSubmit={(values: Values) => {
           dispatch(getFormData(values))
+          navigate('/')
       }}
 
     >
@@ -105,28 +106,29 @@ function Myform() {
 
               </Stack>
 
-              <Typography variant='h5'>Address</Typography>
+              <Typography variant='h5'>Mail & Pass</Typography>
 
               <Field
                 id="standard-basic"
-                name='addLine1'
+                name='email'
                 as={TextField}
-                label="Streel Line"
+                label="Email"
                 style={inputStyle}
                 variant="outlined"
-                helperText={<ErrorMessage name="addLine1" />}
-                error={(touched.addLine1 && errors.addLine1) ? true : false}
+                helperText={<ErrorMessage name="email" />}
+                error={(touched.email && errors.email) ? true : false}
               />
 
               <Field
                 id="standard-basic"
-                name='addLine2'
+                name='password'
+                type='password'
                 as={TextField}
-                label="Streel Line2"
+                label="Password"
                 style={inputStyle}
                 variant="outlined"
-                helperText={<ErrorMessage name="addLine2" />}
-                error={(touched.addLine2 && errors.addLine2) ? true : false}
+                helperText={<ErrorMessage name="password" />}
+                error={(touched.password && errors.password) ? true : false}
               />
 
               <Stack direction={'row'} spacing={2}>
@@ -176,6 +178,11 @@ function Myform() {
               <Stack alignItems={'center'}>
                 <Button variant='contained' type='submit' style={{ width: 'min-content' }}>Submit</Button>
               </Stack>
+            </Stack>
+
+            <Stack alignItems='flex-end' marginTop={3}>
+                    <Typography variant='body1'>Already have an account?</Typography>
+                    <Link to='/'><Typography variant='body2'>Login!</Typography></Link>
             </Stack>
 
 
