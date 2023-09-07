@@ -19,8 +19,8 @@ interface IForm{
 }
 const initialState:FormData = {
     data:[{
-        firstName: "mustafa",
-        lastName: "ali",
+        firstName: "zaid",
+        lastName: "ahmed",
         city: "string",
         selectedProvince: "string",
         email: "new@gmail.com",
@@ -41,23 +41,21 @@ const formSlice = createSlice({
             state.data=[...state.data, action.payload];
         },
         signin(state, action:PayloadAction<UserLogin>){
-            state.data.filter((_data, index)=>{
+            state.data.map((_item, index)=>{
                 const condition = state.data[index].email === action.payload.email  && state.data[index].password === action.payload.password 
                 if(condition){
                     state.isLoggedIn=true;
                     state.signInUser=action.payload;
                     state.userName = state.data[index].firstName+" "+state.data[index].lastName;
-                }else{
+                } else {
                     state.isLoggedIn=false;
-                    state.signInUser.email=null;
-                    state.signInUser.password=null
                 }
+
             })    
         },
         logout(state){
-            state.isLoggedIn=false;
-            state.signInUser.email=null;
-            state.signInUser.password=null;
+            state.signInUser.email='';
+            state.signInUser.password='';
             state.isLoggedIn=undefined;
         },
     }

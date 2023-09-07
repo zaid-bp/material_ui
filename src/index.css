@@ -1,3 +1,6 @@
-a{
-    text-decoration: none;
+.css-jedpe8-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+    padding: 7px !important;
+}
+body{
+    overflow-x: hidden !important;
 }
