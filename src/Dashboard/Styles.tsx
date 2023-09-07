@@ -67,6 +67,7 @@ export const slideInView = {
 }
 
 export const normalSlide = {
+    transition: 'transform 0.8s ease-in-out',
     transform: 'scale(0.9)',
     margin: '1rem 0rem',
     width: '68%',
