@@ -73,8 +73,8 @@ const NewAdd = () => {
                 onClick={() => setCounter(index)}
                 right={`${index}rem`}
                 sx={{
-                    width: '10px',
-                    height: '10px',
+                    width: index === counter ? '13px':'10px',
+                    height: index === counter ? '13px':'10px',
                     background: index === counter ? '#463C3C' : '#E1E1E1',
                     borderRadius: '100%',
                     zIndex: 20,

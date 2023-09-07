@@ -55,25 +55,26 @@ export const newAdd = {
     fontWeight: '500',
     lineHeight: 'normal',
 }
-
+// styles for in view slide
 export const slideInView = {
     transform: 'scale(1.125)',
-    transition: 'transform 0.8s ease-in-out',
+    transition: 'transform 0.3s ease-in-out',
     position: 'relative',
     zIndex: '10',
     margin: '1rem 2rem',
     width: '78%',
     flexShrink: '0',
 }
-
+// styles for in slide not in the view currently
 export const normalSlide = {
-    transition: 'transform 0.8s ease-in-out',
-    transform: 'scale(0.9)',
+    transition: 'transform 0.3s ease-in-out',
+    transform: 'scale(0.85)',
     margin: '1rem 0rem',
     width: '68%',
     flexShrink: '0',
     // opacity:'0.7'
 }
+// slider name styles
 export const sliderFont = {
 color: '463C3C',
 fontFamily: 'Roboto',
@@ -82,6 +83,7 @@ fontStyle: 'normal',
 fontWeight: '400',
 lineHeight: 'normal',
 }
+// forward and back button styles
 export const sliderBtn = {
     backgroundColor: '#ffff',
     color: '#463C3C',
