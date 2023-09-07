@@ -69,7 +69,7 @@ function ProfitLoss() {
           <Stack>
 
             <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-              <Typography style={yellColorTxt} sx={{ width: '-moz-available' }} variant='h2'>Rs. {income}</Typography>
+              <Typography style={yellColorTxt} sx={{ width: '100%' }} variant='h2'>Rs. {income}</Typography>
 
               <Stack bgcolor={'tranaparent'} borderRadius={'20px'} width={'100%'} height={'2vh'}>
                 <Stack borderRadius={'20px'} width={`${incomeValue}%`} bgcolor={'#34A853'} height={'100%'}>
@@ -83,7 +83,7 @@ function ProfitLoss() {
 
           <Stack>
             <Stack direction={'row'} alignItems={'center'}>
-              <Typography style={yellColorTxt} sx={{ width: '-moz-available' }} variant='h2'>Rs. {expenses}</Typography>
+              <Typography style={yellColorTxt} sx={{ width: '100%' }} variant='h2'>Rs. {expenses}</Typography>
 
               <Stack bgcolor={'transparent'} borderRadius={'20px'} height={'2vh'} width={'100%'}>
                 <Stack borderRadius={'20px'} width={`${expenseValue}%`} height={'100%'} bgcolor={'red'}>
